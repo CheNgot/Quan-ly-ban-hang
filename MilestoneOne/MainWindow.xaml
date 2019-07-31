@@ -1,0 +1,90 @@
+﻿<Window x:Class="MilestoneOne.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MilestoneOne"
+        mc:Ignorable="d"
+        SizeChanged="Window_SizeChanged"
+        Title="Manage Product" Height="631" Width="813" WindowStartupLocation="CenterScreen">
+    <StackPanel>
+        <StackPanel Margin="4" Orientation="Horizontal">
+            <Button Name="ButtonAddProduct" Content="Add Product" Click="ButtonAddProductClick" Padding="6"
+                    Background="#FFABD6C1" />
+            <Button Name="ButtonImportExcel" Content="Import Excel" Height="Auto" Padding="6"
+                    Click="ButtonImportExcelClick" HorizontalAlignment="Right" Margin="20,0,0,0" />
+            <Button Name="ButtonOrder" Content="Manage Order" Height="Auto" Padding="6"
+                    Click="ButtonOrder_Click" HorizontalAlignment="Right" Margin="20,0,0,0" />
+            <Button Click="ButtonCharts_Click" x:Name="buttonCharts" Content="Charts" Margin="20 0 0 0" Width="50"/>
+        </StackPanel>
+        <WrapPanel Margin="4" MaxHeight="480" MinHeight="480">
+            <ListView x:Name="ListView" Height="Auto" Width="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      VerticalContentAlignment="Stretch"
+                      ScrollViewer.VerticalScrollBarVisibility="Visible" HorizontalContentAlignment="Stretch">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch"
+                                    MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Delete" Click="deleteProductMenuitem_Click" />
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
+                            <Image Source="{Binding Image}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                   Height="100" Width="100" />
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                       FontSize="16" />
+                            <TextBlock Text="{Binding Cost}" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                       FontSize="16" />
+                            <TextBlock Text="{Binding Amount}" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                       FontSize="16" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </WrapPanel>
+        <StackPanel Margin="4" VerticalAlignment="Bottom"
+                    ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                    Orientation="Horizontal" HorizontalAlignment="Right">
+            <ListView x:Name="ListViewType" Height="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                      VerticalContentAlignment="Stretch"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Stretch"
+                      MaxWidth="650">
+
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch"
+                                    MouseLeftButtonDown="TypeItemListView_MouseLeftClick">
+                            <StackPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Update" Click="updateTypeMenuitem_Click" />
+                                    <MenuItem Header="Delete" Click="deleteTypeMenuitem_Click" />
+                                </ContextMenu>
+                            </StackPanel.ContextMenu>
+                            <Line X1="0" X2="0" Y1="0" Y2="20" Stroke="Black" StrokeThickness="0.5" Margin="5,0,10,0" />
+
+                            <TextBlock Text="{Binding TypeName}" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                       FontSize="16" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Name="ButtonAddType" Content="Add Type" VerticalContentAlignment="Center"
+                    HorizontalAlignment="Right" VerticalAlignment="Center" Padding="4" FontStyle="Italic"
+                    Background="#FFAFC5FF" FontSize="16" HorizontalContentAlignment="Center" Width="80"
+                    Click="ButtonAddTypeClick" />
+        </StackPanel>
+    </StackPanel>
+</Window>

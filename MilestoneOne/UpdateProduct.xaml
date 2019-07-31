@@ -1,0 +1,27 @@
+﻿<Window x:Class="MilestoneOne.UpdateProduct"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MilestoneOne"
+        mc:Ignorable="d"
+        Title="Update Product" Height="369.9" Width="554">
+    <Grid Margin="0,0,3.2,1.4">
+        <Image x:Name="Img" Margin="24,13,328,132.6" RenderTransformOrigin="0.483,0.477" Width="200" Height="200" Stretch="Fill" />
+        <Button x:Name="Btnchonanh" Content="Pick Image" Click="Picking" Margin="80,218,379,84.6" FontSize="15" RenderTransformOrigin="0.575,0.547" />
+        <Button x:Name="Btnupdate" Content="Update" Click="Update" Margin="24,281,379,18.6" FontSize="18" />
+        <Button Content="Exit" Click="Exit" Margin="435,281,24,18.6" FontSize="18" />
+        <TextBox x:Name="Txtname" Margin="351,13,24,290.6" FontSize="16" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="Txtcost" Margin="351,61,24,240.6" PreviewTextInput="NumberValidationTextBox" FontSize="16" VerticalContentAlignment="Center" />
+        <TextBox x:Name="Txtamout" Margin="351,109,24,189.6" PreviewTextInput="NumberOnly" FontSize="16" VerticalContentAlignment="Center"/>
+        <ComboBox x:Name="Cbidloai" Margin="351,160,24,143.6" FontSize="16" VerticalContentAlignment="Center" />
+        <Label Content="Name" HorizontalAlignment="Left" Margin="279,13,0,0" VerticalAlignment="Top" Width="67"
+               FontSize="16" RenderTransformOrigin="0.499,0.278" Height="27" />
+        <Label Content="Cost" HorizontalAlignment="Left" Margin="279,61,0,0" VerticalAlignment="Top" Width="67"
+               FontSize="16" RenderTransformOrigin="0.651,1.854" Height="28" />
+        <Label Content="Amount" HorizontalAlignment="Left" Margin="279,109,0,0" VerticalAlignment="Top" Width="67"
+               FontSize="16" RenderTransformOrigin="0.531,0.241" Height="29" />
+        <Label Content="Name" HorizontalAlignment="Left" Margin="279,160,0,0" VerticalAlignment="Top" Width="67"
+               FontSize="16" Height="27" />
+    </Grid>
+</Window>

@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="MilestoneOne.OrderList_UserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MilestoneOne"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <Button Click="Button_Previous_Click" Height="30" Width="50" Name="ButtonPrevious" Content="Previous" />
+                <Label Content="1" Name="LabelPageNumber" VerticalAlignment="Center" Height="30" Width="50"
+                       HorizontalContentAlignment="Center" FontSize="17" />
+                <Button Click="Button_Next_Click" Height="30" Width="50" Name="ButtonNext" Content="Next" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="0">
+            <ItemsControl Name="ItemControlListOrder">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Height="116">
+                            <StackPanel Height="116" MouseLeftButtonDown="StackPanel_MouseLeftButtonDown">
+                                <Grid Height="116">
+                                    <TextBlock Text="Order Status:" Height="20" Margin="0,0,70,0"
+                                               FontSize="15"
+                                               VerticalAlignment="Top" HorizontalAlignment="Right" />
+                                    <Label Name="label_orderStatus" Content="{Binding Status}"
+                                           VerticalAlignment="Top"
+                                           HorizontalAlignment="Right" FontSize="15" Margin="0,-4,0,0" />
+                                    <TextBlock Height="20" FontSize="15" Text="OrderId:"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Top" />
+                                    <Label Name="label_OrderID" FontSize="15" VerticalContentAlignment="Top"
+                                           Content="{Binding Id}" Width="150" Margin="10,-5,450,9" />
+                                    <Button Name="BtnDelOder" Click="btn_DelOrder_click" VerticalAlignment="Bottom" Width="50" Height="30" 
+                                           HorizontalAlignment="Left" Margin="5" Content="DELETE"  ></Button>
+                                    <TextBlock Height="20" Width="90" FontSize="15" Text="Total Money:"
+                                               Margin="770,90,151,6" />
+                                    <Label Name="label_totalMoney" FontSize="15" VerticalContentAlignment="Bottom"
+                                           Content="{Binding Total}" Width="150" Height="30" Margin="861,86,0,0" />
+                                    <ScrollViewer Height="65">
+                                        <ItemsControl ItemsSource="{Binding ProductInOrderTables}"
+                                                      Name="ItemControl_productAtOder">
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical" Height="65" Width="100">
+                                                        <TextBlock Text="{Binding Name}" HorizontalAlignment="Center" />
+                                                        <TextBlock Text="{Binding Cost}" HorizontalAlignment="Center" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</UserControl>

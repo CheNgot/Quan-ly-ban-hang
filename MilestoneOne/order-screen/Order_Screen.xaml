@@ -1,0 +1,19 @@
+﻿<Window x:Class="MilestoneOne.Order_Screen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MilestoneOne"
+        mc:Ignorable="d"
+        Title="ProductInOrder_ListView_Screen" Height="630" Width="1025" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Create ProductInOrder_ListView">
+                <local:CreateOrder_UserControl />
+            </TabItem>
+            <TabItem Header="ProductInOrder_ListView List">
+                <local:OrderList_UserControl />
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

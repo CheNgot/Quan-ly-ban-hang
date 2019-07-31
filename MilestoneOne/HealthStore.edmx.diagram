@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c339c36ecee54bb8b9ddcc62b6031394" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="HealthStoreDatabaseModel.Product" PointX="3" PointY="1" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthStoreDatabaseModel.Type" PointX="0.75" PointY="1.375" Width="1.5" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="HealthStoreDatabaseModel.FK_ProductTable_ToTable" />
+        <EntityTypeShape EntityType="HealthStoreDatabaseModel.OrderTable" PointX="0.75" PointY="3.75" Width="1.5" />
+        <EntityTypeShape EntityType="HealthStoreDatabaseModel.ProductInOrderTable" Width="1.5" PointX="6" PointY="2" />
+        <AssociationConnector Association="HealthStoreDatabaseModel.FK_ProductInOrderTable_OrderTable" />
+        <AssociationConnector Association="HealthStoreDatabaseModel.FK_ProductInOrderTable_ProductTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

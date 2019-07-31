@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HealthStoreDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="OrderTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Total" Type="float" />
+          <Property Name="Status" Type="ntext" />
+        </EntityType>
+        <EntityType Name="ProductInOrderTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="ntext" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ProductId" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="ntext" />
+          <Property Name="Cost" Type="float" />
+          <Property Name="Path" Type="ntext" />
+          <Property Name="Amount" Type="int" />
+          <Property Name="IdType" Type="int" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="ntext" />
+        </EntityType>
+        <Association Name="FK_ProductInOrderTable_OrderTable">
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="0..1" />
+          <End Role="ProductInOrderTable" Type="Self.ProductInOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductInOrderTable">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductInOrderTable_ProductTable">
+          <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="0..1" />
+          <End Role="ProductInOrderTable" Type="Self.ProductInOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductInOrderTable">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductTable_ToTable">
+          <End Role="Type" Type="Self.Type" Multiplicity="0..1" />
+          <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="ProductTable">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthStoreDatabaseModelStoreContainer">
+          <EntitySet Name="OrderTable" EntityType="Self.OrderTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductInOrderTable" EntityType="Self.ProductInOrderTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTable" EntityType="Self.ProductTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ProductInOrderTable_OrderTable" Association="Self.FK_ProductInOrderTable_OrderTable">
+            <End Role="OrderTable" EntitySet="OrderTable" />
+            <End Role="ProductInOrderTable" EntitySet="ProductInOrderTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductInOrderTable_ProductTable" Association="Self.FK_ProductInOrderTable_ProductTable">
+            <End Role="ProductTable" EntitySet="ProductTable" />
+            <End Role="ProductInOrderTable" EntitySet="ProductInOrderTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductTable_ToTable" Association="Self.FK_ProductTable_ToTable">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="ProductTable" EntitySet="ProductTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HealthStoreDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Name" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Cost" Type="Double" />
+          <Property Name="Path" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Amount" Type="Int32" />
+          <Property Name="IdType" Type="Int32" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_ProductTable_ToTable" FromRole="ProductTable" ToRole="Type" />
+          <NavigationProperty Name="ProductInOrderTables" Relationship="HealthStoreDatabaseModel.FK_ProductInOrderTable_ProductTable" FromRole="Product" ToRole="ProductInOrderTable" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="IdType" />
+          </Key>
+          <Property Name="IdType" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="TypeName" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductTable_ToTable" FromRole="Type" ToRole="ProductTable" />
+        </EntityType>
+        <Association Name="FK_ProductTable_ToTable">
+          <End Type="Self.Type" Multiplicity="0..1" Role="Type" />
+          <End Type="HealthStoreDatabaseModel.Product" Multiplicity="*" Role="ProductTable" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="IdType" />
+            </Principal>
+            <Dependent Role="ProductTable">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthStoreDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Products" EntityType="HealthStoreDatabaseModel.Product" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <AssociationSet Name="FK_ProductTable_ToTable" Association="Self.FK_ProductTable_ToTable">
+            <End EntitySet="Types" Role="Type" />
+            <End EntitySet="Products" Role="ProductTable" />
+          </AssociationSet>
+          <EntitySet Name="OrderTables" EntityType="HealthStoreDatabaseModel.OrderTable" />
+          <EntitySet Name="ProductInOrderTables" EntityType="HealthStoreDatabaseModel.ProductInOrderTable" />
+          <AssociationSet Name="FK_ProductInOrderTable_OrderTable" Association="HealthStoreDatabaseModel.FK_ProductInOrderTable_OrderTable">
+            <End Role="OrderTable" EntitySet="OrderTables" />
+            <End Role="ProductInOrderTable" EntitySet="ProductInOrderTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductInOrderTable_ProductTable" Association="HealthStoreDatabaseModel.FK_ProductInOrderTable_ProductTable">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductInOrderTable" EntitySet="ProductInOrderTables" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OrderTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Total" Type="Double" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductInOrderTables" Relationship="HealthStoreDatabaseModel.FK_ProductInOrderTable_OrderTable" FromRole="OrderTable" ToRole="ProductInOrderTable" />
+        </EntityType>
+        <EntityType Name="ProductInOrderTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <NavigationProperty Name="OrderTable" Relationship="HealthStoreDatabaseModel.FK_ProductInOrderTable_OrderTable" FromRole="ProductInOrderTable" ToRole="OrderTable" />
+          <NavigationProperty Name="ProductTable" Relationship="HealthStoreDatabaseModel.FK_ProductInOrderTable_ProductTable" FromRole="ProductInOrderTable" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_ProductInOrderTable_OrderTable">
+          <End Type="HealthStoreDatabaseModel.OrderTable" Role="OrderTable" Multiplicity="0..1" />
+          <End Type="HealthStoreDatabaseModel.ProductInOrderTable" Role="ProductInOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductInOrderTable">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductInOrderTable_ProductTable">
+          <End Type="HealthStoreDatabaseModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="HealthStoreDatabaseModel.ProductInOrderTable" Role="ProductInOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductInOrderTable">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HealthStoreDatabaseModelStoreContainer" CdmEntityContainer="HealthStoreDatabaseEntities">
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="HealthStoreDatabaseModel.Product">
+              <MappingFragment StoreEntitySet="ProductTable">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="HealthStoreDatabaseModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderTables">
+            <EntityTypeMapping TypeName="HealthStoreDatabaseModel.OrderTable">
+              <MappingFragment StoreEntitySet="OrderTable">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductInOrderTables">
+            <EntityTypeMapping TypeName="HealthStoreDatabaseModel.ProductInOrderTable">
+              <MappingFragment StoreEntitySet="ProductInOrderTable">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
